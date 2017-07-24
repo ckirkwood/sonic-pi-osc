@@ -24,23 +24,31 @@ server_ip = os.environ.get('SERVER_IP')
 
 # base neo pixel functions
 def signal_handler(signal, frame):
-        colorWipe(strip, Color(0,0,0))
-        sys.exit(0)
+    colorWipe(strip, Color(0,0,0))
+    sys.exit(0)
 signal.signal(signal.SIGINT, signal_handler)
 
-def allOn(strip, color):
-    """Turn all pixels on"""
+def colorWipe(strip, color, wait_ms=50):
+	"""Wipe color across display a pixel at a time."""
 	for i in range(strip.numPixels()):
 		strip.setPixelColor(i, color)
 		strip.show()
+		sleep(wait_ms/1000.0)
+
+def allOn(strip, color):
+    """Turn all pixels on"""
+    for i in range(strip.numPixels()):
+        strip.setPixelColor(i, color)
+        strip.show()
 
 # functions called by message handlers
 def oscInput(addr, tags, stuff, source):
-  print stuff
+    print stuff
 
 def lightBox(addr, tags, stuff, source):
-  r, b, g = stuff
-  allOn(strip, Color(b, r, g))
+    r, b, g = stuff
+    print stuff
+    allOn(strip, Color(b, r, g))
 
 # assign server ip and port
 server = OSCServer((server_ip, 9090))
@@ -56,8 +64,8 @@ server_thread.start()
 
 # clean exit
 try:
-  while True:
-    sleep(1)
+    while True:
+      sleep(1)
 except KeyboardInterrupt:
-  print 'done'
-  server.close()
+    print 'done'
+    server.close()
