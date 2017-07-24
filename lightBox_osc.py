@@ -1,3 +1,5 @@
+# small scale test controlling WS2812 neo pixels from sonic pi via osc
+
 from OSC import OSCServer
 from time import sleep
 from threading import Thread
@@ -28,11 +30,11 @@ def signal_handler(signal, frame):
     sys.exit(0)
 signal.signal(signal.SIGINT, signal_handler)
 
-def colorWipe(strip, color):
-	"""Wipe color across display a pixel at a time."""
-	for i in range(strip.numPixels()):
-		strip.setPixelColor(i, color)
-		strip.show()
+def allOn(strip, color):
+    """Wipe color across display a pixel at a time."""
+    for i in range(strip.numPixels()):
+        strip.setPixelColor(i, color)
+        strip.show()
 
 # functions called by message handlers
 def oscInput(addr, tags, stuff, source):
@@ -41,7 +43,7 @@ def oscInput(addr, tags, stuff, source):
 def lightBox(addr, tags, stuff, source):
     r, b, g = stuff
     print stuff
-    colorWipe(strip, Color(b, r, g))
+    allOn(strip, Color(b, r, g))
 
 # assign server ip and port
 server = OSCServer((server_ip, 9090))
