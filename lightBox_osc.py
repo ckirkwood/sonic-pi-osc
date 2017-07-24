@@ -30,8 +30,7 @@ def signal_handler(signal, frame):
     sys.exit(0)
 signal.signal(signal.SIGINT, signal_handler)
 
-def allOn(strip, color):
-    """Wipe color across display a pixel at a time."""
+def colorWipe(strip, color):
     for i in range(strip.numPixels()):
         strip.setPixelColor(i, color)
         strip.show()
@@ -43,7 +42,7 @@ def oscInput(addr, tags, stuff, source):
 def lightBox(addr, tags, stuff, source):
     r, b, g = stuff
     print stuff
-    allOn(strip, Color(b, r, g))
+    colorWipe(strip, Color(b, r, g))
 
 # assign server ip and port
 server = OSCServer((server_ip, 9090))
