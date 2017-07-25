@@ -56,6 +56,13 @@ def pot_value():
 st = threading.Thread( target = s.serve_forever )
 st.start()
 
-while True:
-    pot_value()
-    time.sleep(0.1)
+
+try:
+    while True:
+        pot_value()
+        time.sleep(0.1)
+
+# clean exit        
+except KeyboardInterrupt:
+    print 'Closing...'
+    st.close()

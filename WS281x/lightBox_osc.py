@@ -40,7 +40,7 @@ def colorWipe(strip, color):
 def oscInput(addr, tags, stuff, source):
     print stuff
 
-def lightBox(addr, tags, stuff, source):
+def rgb(addr, tags, stuff, source):
     r, g, b = stuff
     print r, g, b
     colorWipe(strip, Color(b, r, g))
@@ -48,11 +48,14 @@ def lightBox(addr, tags, stuff, source):
 def hsv(addr, tags, stuff, source):
     h, s, v = stuff
     r, g, b = [int(c * 255) for c in colorsys.hsv_to_rgb(h, s, v)]
-    colorWipe(strip, Color(b, r, g))
     print(r, g, b)
+    colorWipe(strip, Color(b, r, g))
 
 # assign server ip and port
 server = OSCServer((server_ip, 9090))
+
+# script start dialogue
+print('Listening for incoming OSC messages...')
 
 # message handlers
 server.addDefaultHandlers() #for dealing with unmatched messages
@@ -68,5 +71,5 @@ try:
     while True:
       sleep(1)
 except KeyboardInterrupt:
-    print 'done'
+    print 'Closing...'
     server.close()

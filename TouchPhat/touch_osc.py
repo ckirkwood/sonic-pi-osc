@@ -67,3 +67,10 @@ def touch_keys(event):
     elif event.name == 'Enter':
         send_osc('/touch/trigger', 72)
 
+# clean exit
+try:
+    while True:
+      sleep(1)
+except KeyboardInterrupt:
+    print 'Closing...'
+    st.close()
