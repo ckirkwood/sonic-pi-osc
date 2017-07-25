@@ -7,6 +7,7 @@ from dotenv import load_dotenv, find_dotenv
 from neopixel import *
 import signal
 import sys
+import colorsys
 import os
 
 # LED strip configuration:
@@ -40,16 +41,22 @@ def oscInput(addr, tags, stuff, source):
     print stuff
 
 def lightBox(addr, tags, stuff, source):
-    r, b, g = stuff
-    print stuff
+    r, g, b = stuff
+    print r, g, b
     colorWipe(strip, Color(b, r, g))
+
+def hsv(addr, tags, stuff, source):
+    h, s, v = stuff
+    r, g, b = [int(c * 255) for c in colorsys.hsv_to_rgb(h, s, v)]
+    colorWipe(strip, Color(b, r, g))
+    print(r, g, b)
 
 # assign server ip and port
 server = OSCServer((server_ip, 9090))
 
 # message handlers
 server.addDefaultHandlers() #for dealing with unmatched messages
-server.addMsgHandler("/rgb", lightBox)
+server.addMsgHandler("/rgb", hsv)
 
 # start thread
 server_thread= Thread(target= server.serve_forever)
