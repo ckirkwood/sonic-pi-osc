@@ -70,7 +70,7 @@ def touch_keys(event):
 # clean exit
 try:
     while True:
-      sleep(1)
+        time.sleep(1)
 except KeyboardInterrupt:
     print 'Closing...'
     st.close()
