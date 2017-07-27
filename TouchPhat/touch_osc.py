@@ -2,7 +2,6 @@
 # requires touchKeys.rb running in Sonic Pi 3
 
 import OSC
-import threading
 import touchphat
 import time
 from dotenv import load_dotenv, find_dotenv
@@ -10,19 +9,16 @@ import os
 
 # retrieve environment variables
 load_dotenv(find_dotenv())
-server_ip = os.environ.get('SERVER_IP')
 client_ip = os.environ.get('CLIENT_IP')
 
-# set server (listen) and client (send) IPs
-receive_address = (server_ip, 22)
+# set IP and port of device running Sonic Pi
 send_address = (client_ip, 4559)
 
 # Initialize the OSC server and the client.
-s = OSC.OSCServer(receive_address)
 c = OSC.OSCClient()
 c.connect(send_address)
 
-# send function for multiple arguments
+# create function to send message with multiple arguments
 def send_osc(addr, *stuff):
     msg = OSC.OSCMessage()
     msg.setAddress(addr)
@@ -44,10 +40,6 @@ def answer_handler(addr, tags, stuff, source):
     print "---"
     print "received new osc msg from %s" % OSC.getUrlStr(source)
     print stuff
-
-# start OSCServer in extra thread
-st = threading.Thread( target = s.serve_forever )
-st.start()
 
 initialise()
 
@@ -73,4 +65,3 @@ try:
         time.sleep(1)
 except KeyboardInterrupt:
     print 'Closing...'
-    st.close()
