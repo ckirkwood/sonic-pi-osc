@@ -1,5 +1,5 @@
 # small scale test controlling Sonic Pi with analogue inputs
-# requires potSynth.rb running in Sonic Pi 3
+# accompanies  potSynth.rb running in Sonic Pi 3
 
 import OSC
 import time
@@ -42,7 +42,7 @@ def pot_value():
     	list = [a, b, c]
         send_osc('/pot/value', list)
 
-
+# call function on a loop
 try:
     while True:
         pot_value()
