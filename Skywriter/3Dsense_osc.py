@@ -1,8 +1,11 @@
 #!/usr/bin/env python
 
+# small scale test controlling Sonic Pi with Pimoroni's Skywriter HAT via OSC
+# accompanies 3Dsynth.rb running in Sonic Pi 3
+
+import OSC
 import signal
 from sys import exit
-import OSC
 import time
 from dotenv import load_dotenv, find_dotenv
 import os

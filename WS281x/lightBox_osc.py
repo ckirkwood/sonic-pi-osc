@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 # small scale test controlling WS2812 neo pixels from sonic pi via osc
 
 from OSC import OSCServer

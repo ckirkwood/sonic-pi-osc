@@ -1,5 +1,7 @@
+#!/usr/bin/env python
+
 # small scale test controlling Sonic Pi with Pimoroni's Touch  Phat via OSC
-# requires touchKeys.rb running in Sonic Pi 3
+# accompanies touchKeys.rb running in Sonic Pi 3
 
 import OSC
 import touchphat

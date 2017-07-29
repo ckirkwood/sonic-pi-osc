@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 # small scale test controlling Sonic Pi with analogue inputs
 # accompanies  potSynth.rb running in Sonic Pi 3
 

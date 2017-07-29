@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 from OSC import OSCServer
 from time import sleep
 from threading import Thread
